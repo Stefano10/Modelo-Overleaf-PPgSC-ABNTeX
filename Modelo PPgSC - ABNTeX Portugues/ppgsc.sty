@@ -1,0 +1,100 @@
+%% Customizações do abnTeX2 (http://abnTeX2.googlecode.com)
+%% para o Programa de Pós-Graduação em Sistemas e
+%% Computação (PPgSC) da Universidade Federal do Rio
+%% Grande do Norte
+
+\ProvidesPackage{abntex2novopacote}[2019/01/25 Criacao desta customizacao do abnTeX2]
+\renewcommand{\ABNTEXchapterfont}{\normalfont\bfseries}
+
+% Definição de grau acadêmico
+\providecommand{\imprimirgrau}{}
+\newcommand{\grau}[1]{\renewcommand{\imprimirgrau}{
+    \ifnum\pdf@strcmp{\unexpanded{#1}}{Mestrado}=0 %
+        \expandafter\@firstoftwo
+    \else
+        \expandafter\@secondoftwo
+    \fi
+    {Mestrado Acad{\^e}mico em Sistemas e Computa{\c{c}\~a}o}
+    {Doutorado Acad{\^e}mico em Ci{\^e}ncia da Computa{\c{c}\~a}o}%
+}}
+\newcommand{\imprimirformacao}[1]{
+    \ifnum\pdf@strcmp{\unexpanded{#1}}{Mestrado}=0 %
+        \expandafter\@firstoftwo
+    \else
+        \expandafter\@secondoftwo
+    \fi
+    {Mestre em Sistemas e Computa{\c{c}\~a}o}
+    {Doutor em Ci{\^e}ncia da Computa{\c{c}\~a}o}%
+}
+
+% Alterando a capa
+\renewcommand{\imprimircapa}{%
+\begin{capa}%
+    \center
+    \includegraphics[scale=0.04]{imagens/brasao-ufrn.png}\\
+    \MakeUppercase{\imprimiruniversidade}\\
+    \MakeUppercase{\imprimircentro}\\
+    \MakeUppercase{\imprimirprograma}\\
+    \MakeUppercase{\imprimirgrau}
+
+    \vspace*{4cm}
+    \begin{center}
+    \ABNTEXchapterfont\LARGE\imprimirtitulo
+    \end{center}
+    
+    \vspace*{4cm}
+    
+    {\ABNTEXchapterfont\large\imprimirautor}
+    
+    \vspace*{4cm}
+    
+    \normalfont\imprimirlocal\\
+    \normalfont\imprimirdata
+    
+    \vspace*{1cm}
+  \end{capa}
+}
+
+% Folha de rosto 
+\makeatletter
+
+\renewcommand{\folhaderostocontent}{
+\begin{center}
+{\ABNTEXchapterfont\large\imprimirautor}
+\vspace*{\fill}\vspace*{\fill}
+
+\begin{center}
+\ABNTEXchapterfont\bfseries\Large\imprimirtitulo
+\end{center}
+
+\vspace*{\fill}
+
+\abntex@ifnotempty{\imprimirpreambulo}{%
+  \hspace{.45\textwidth}
+  \begin{minipage}{.5\textwidth}
+  \SingleSpacing
+  \imprimirpreambulo
+  \end{minipage}%
+  \vspace*{\fill}
+}%
+
+{\normalfont\imprimirorientadorRotulo~\imprimirorientador\par}
+
+\abntex@ifnotempty{\imprimircoorientador}{%
+  {\normalfont\imprimircoorientadorRotulo~\imprimircoorientador}%
+}%
+
+\vspace*{\fill}
+
+{\abntex@ifnotempty{\imprimirinstituicao}{\imprimirinstituicao\vspace*{\fill}}}
+
+{\normalfont\imprimirlocal}
+
+\par
+
+{\normalfont\imprimirdata}
+\vspace*{1cm}
+\end{center}
+}
+
+\makeatother
